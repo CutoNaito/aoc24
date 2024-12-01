@@ -20,6 +20,12 @@ void add(List *list, int value)
     list->list[list->size - 1] = value;
 }
 
+void deinit(List *list)
+{
+    free(list->list);
+    free(list);
+}
+
 void sort(List *list)
 {
     for (int i = 0; i < list->size; i++) {
@@ -56,6 +62,8 @@ int part1()
         add(list2, atoi(num2));
     }
 
+    fclose(fp);
+
     sort(list1);
     sort(list2);
 
@@ -64,6 +72,9 @@ int part1()
     for (int i = 0; i < list1->size; i++) {
         result += abs(list1->list[i] - list2->list[i]);
     }
+
+    deinit(list1);
+    deinit(list2);
 
     return result;
 }
@@ -91,6 +102,8 @@ int part2()
         add(list2, atoi(num2));
     }
 
+    fclose(fp);
+
     int result = 0;
 
     for (int i = 0; i < list1->size; i++) {
@@ -103,6 +116,9 @@ int part2()
 
         result += list1->list[i] * simcount;
     }
+
+    deinit(list1);
+    deinit(list2);
 
     return result;
 }
